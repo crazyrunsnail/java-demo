@@ -26,6 +26,7 @@ public class ScatterGatherDemo {
             System.exit(1);
         }
 
+        // InputStream获取Channel的方法
         ScatteringByteChannel src = (ScatteringByteChannel) Channels.newChannel(fis);
 
         ByteBuffer byteBuffer1 = ByteBuffer.allocateDirect(1);

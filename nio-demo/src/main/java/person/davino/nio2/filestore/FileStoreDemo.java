@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
+/**
+ * FileSystems 用 FileStore
+ */
 public class FileStoreDemo {
     public static void main(String[] args) throws IOException {
         Iterable<Path> rootDirectories = FileSystems.getDefault().getRootDirectories();

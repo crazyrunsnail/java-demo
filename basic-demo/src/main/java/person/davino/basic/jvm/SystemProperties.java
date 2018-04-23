@@ -12,6 +12,7 @@ public class SystemProperties {
 
     public static void main(String[] args) {
         Arrays.stream(System.getProperty("java.class.path").split(":")).forEach(System.out::println);
+        System.getProperty("sun.boot.class.path");
 
     }
 }
