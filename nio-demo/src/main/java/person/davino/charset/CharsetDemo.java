@@ -22,7 +22,8 @@ public class CharsetDemo {
         byte[] bytes = s.getBytes();
 
         for (byte _byte: bytes) {
-            // 如果不&255, 会打印 ffffc3, 因为byte会自动转型为int, 前面补1
+            // 如果不&255, 会打印 大于一个字节(255)前面会自动补"ffffff", 如ffffffc3,
+            // 因为byte会自动转型为int, 前面补1, (补码表示法)
             System.out.println(Integer.toHexString(_byte & 255) + " ");
         }
         System.out.println();

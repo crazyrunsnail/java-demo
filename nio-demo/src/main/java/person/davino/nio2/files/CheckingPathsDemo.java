@@ -18,7 +18,7 @@ public class CheckingPathsDemo {
         System.out.println("File is notExists:" + Files.notExists(path, LinkOption.NOFOLLOW_LINKS));
 
         // false
-        System.out.println("File is Diderctory:" + Files.isDirectory(path,LinkOption.NOFOLLOW_LINKS));
+        System.out.println("File is Diderctory:" + Files.isDirectory(path, LinkOption.NOFOLLOW_LINKS));
 
         // false
         System.out.println("File is executable:" + Files.isExecutable(path));
