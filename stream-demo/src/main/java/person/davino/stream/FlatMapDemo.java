@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Description
+ * FlatMap限定返回的必须是流
  * <p>
  * Writed by davino
  * Created on 14/03/2018
