@@ -1,4 +1,4 @@
-package person.davino.dp.observe;
+package person.davino.dp.observe.wrongexample;
 
 import person.davino.dp.observe.wrongexample.Display;
 import person.davino.dp.observe.wrongexample.OneDisplay;
