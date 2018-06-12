@@ -12,6 +12,7 @@
         <module>rx-demo</module>
         <module>reactor-demo</module>
         <module>netty-demo</module>
+        <module>dp-demo</module>
     </modules>
     <packaging>pom</packaging>
 
