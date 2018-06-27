@@ -37,7 +37,7 @@ public class Menu extends MenuComponent {
     }
 
     public Iterator createIterator() {
-        return new CompositIterator(this);
+        return new CompositIterator(this.createIterator());
     }
 
     public void print() {
