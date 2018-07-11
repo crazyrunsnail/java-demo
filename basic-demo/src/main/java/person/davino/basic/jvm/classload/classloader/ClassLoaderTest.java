@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ClassLoaderTest {
+
+    static {
+        System.out.println("开始加载ClassLoaderTest....");
+    }
+
+
     public static void main(String[] args) throws Exception {
         ClassLoader myLoader = new ClassLoader() {
             @Override
@@ -27,9 +33,17 @@ public class ClassLoaderTest {
             }
         };
 
-
-        Object object = myLoader.loadClass("person.davino.basic.jvm.classload.classloader.ClassLoaderTest").newInstance();
+        System.out.println("calling myLoader.loadClass()");
+        Class<?> aClass = myLoader.loadClass("person.davino.basic.jvm.classload.classloader.ClassLoaderTest");
+        System.out.println("calling end!");
+        System.out.println("newInstanceing....");
+        Object object = aClass.newInstance();
+        System.out.println("Instanceing end....");
         System.out.println(object.getClass());
         System.out.println(object instanceof ClassLoaderTest);
+        ClassLoader parent = myLoader.getParent();
+        if (parent != null) {
+            System.out.println(parent);
+        }
     }
 }
