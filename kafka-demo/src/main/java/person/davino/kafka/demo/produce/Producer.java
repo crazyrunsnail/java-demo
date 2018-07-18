@@ -7,7 +7,10 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import person.davino.kafka.demo.produce.factory.DefaultProducerFactory;
+import person.davino.kafka.demo.produce.factory.KafkaProducerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -18,12 +21,25 @@ public class Producer {
     private static Logger logger = LoggerFactory.getLogger(Producer.class);
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        org.apache.kafka.clients.producer.Producer producer = DefaultProducerFactory.getProducer();
+        Map<String, String> config = new HashMap<>();
+//         非常重要的参数, 决定了kafka的时延
+        config.put("batch.size","90");
+        config.put("linger.ms", "1000");
+        config.put("max.request.size", "150"); // 应该大于batch.size
+        config.put("max.in.flight.requests.per.connection", "1"); // 经测试, 为单次发送时的
 
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("topic", "Message From Java Client and with callback3");
-        Future<RecordMetadata> send = producer.send(producerRecord, new ProducerCallback());
+        org.apache.kafka.clients.producer.Producer producer = DefaultProducerFactory.getProducer(config);
 
-        TimeUnit.SECONDS.sleep(1);
+        ProducerRecord<String, String> producerRecord =
+                new ProducerRecord<>("test", "Message From Java Client and with callback3");
+        for (int i = 0; i < 10; i++) {
+            producerRecord =
+                    new ProducerRecord<>("test", "Message From Java Client and with callback" + "[" + i + "]");
+            Future<RecordMetadata> send = producer.send(producerRecord, new ProducerCallback());
+        }
+//        Future<RecordMetadata> send = producer.send(producerRecord, new ProducerCallback());
+
+        TimeUnit.SECONDS.sleep(13);
     }
 
     private static class ProducerCallback implements Callback {

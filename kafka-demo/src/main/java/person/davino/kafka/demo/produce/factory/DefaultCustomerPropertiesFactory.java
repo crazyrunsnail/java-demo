@@ -10,7 +10,7 @@ public class DefaultCustomerPropertiesFactory {
     public static Properties getProperties() {
         if (properties == null) {
             properties = new Properties();
-            properties.put("bootstrap.servers", "localhost:32769");
+            properties.put("bootstrap.servers", "localhost:9092");
             properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
             properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
             properties.put("group.id", "G1");
