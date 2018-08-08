@@ -10,9 +10,12 @@
         <module>stream-demo</module>
         <module>basic-demo</module>
         <module>rx-demo</module>
-        <module>reactor-demo</module>
         <module>netty-demo</module>
         <module>dp-demo</module>
+        <module>guava-demo</module>
+        <module>kafka-demo</module>
+        <module>mybatis-demo</module>
+        <module>json-demo</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -21,6 +24,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jackson.version>2.9.4</jackson.version>
     </properties>
 
     <dependencyManagement>
