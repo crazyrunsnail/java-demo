@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="replaceTarget" class="xyz.uniofun.prospring.ch3.di.methodreplace.ReplacementTarget">
+        <replaced-method name="formatMessage" replacer="formatReplacer">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+    <bean id="formatReplacer" class="xyz.uniofun.prospring.ch3.di.methodreplace.FormatMethodReplacer" />
+    <bean id="standardTarget" class="xyz.uniofun.prospring.ch3.di.methodreplace.ReplacementTarget" />
+</beans>
