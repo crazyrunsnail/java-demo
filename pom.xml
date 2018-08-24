@@ -17,6 +17,7 @@
         <module>mybatis-demo</module>
         <module>json-demo</module>
         <module>spring-demo</module>
+        <module>log4j2-demo</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -27,6 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jackson.version>2.9.4</jackson.version>
         <spring.version>5.0.6.RELEASE</spring.version>
+        <log4j.version>2.11.1</log4j.version>
     </properties>
 
     <dependencyManagement>
@@ -50,6 +52,17 @@
                 <version>Bismuth-RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
             </dependency>
 
         </dependencies>
