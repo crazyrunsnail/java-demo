@@ -1,4 +1,4 @@
-package xyz.uniofun.prospring.ch5.aop;
+package xyz.uniofun.prospring.ch5.aop.helloworld;
 
 import org.springframework.aop.framework.ProxyFactory;
 
