@@ -23,7 +23,6 @@ public class PropertyPlaceConguration {
     private String password;
 
     @Bean
-    @Lazy
     public DataSource dataSource() {
         try {
             SimpleDriverDataSource dataSource =
