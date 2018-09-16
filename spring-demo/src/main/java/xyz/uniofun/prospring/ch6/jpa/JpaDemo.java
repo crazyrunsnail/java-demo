@@ -11,6 +11,9 @@ public class JpaDemo {
                 new AnnotationConfigApplicationContext(JpaConfiguration.class);
         DataSource dataSource = (DataSource) ctx.getBean("dataSource");
         Assert.notNull(dataSource, "DataSource is null");
-
+        TransactionService service = ctx.getBean(TransactionService.class);
+        DataSourceTransactionService dataSourceTransactionService = ctx.getBean(DataSourceTransactionService.class);
+        service.service();
+        dataSourceTransactionService.service();
     }
 }

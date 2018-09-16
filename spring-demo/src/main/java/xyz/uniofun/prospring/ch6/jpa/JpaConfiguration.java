@@ -3,6 +3,7 @@ package xyz.uniofun.prospring.ch6.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -21,14 +22,15 @@ import java.util.Properties;
 
 @Configuration
 @Import(PropertyPlaceConguration.class)
+@ComponentScan
 @EnableTransactionManagement
-public class JpaConfiguration implements TransactionManagementConfigurer {
+public class JpaConfiguration {
 
     @Autowired
     private DataSource dataSource;
 
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean factoryBean =
                 new LocalContainerEntityManagerFactoryBean();
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
@@ -37,8 +39,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
         factoryBean.setPersistenceUnitName("default");
         factoryBean.setSharedCacheMode(SharedCacheMode.NONE);
         factoryBean.setPackagesToScan("xyz.uniofun.prospring");
-        factoryBean.afterPropertiesSet();
-        return factoryBean.getNativeEntityManagerFactory();
+        return factoryBean;
     }
 
     @Bean
@@ -62,15 +63,22 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    public PlatformTransactionManager jpaTransactionManager() {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-        jpaTransactionManager.setEntityManagerFactory(entityManagerFactory());
+        jpaTransactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+        jpaTransactionManager.setDataSource(dataSource);
         return jpaTransactionManager;
     }
 
 
-    @Override
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return transactionManager();
+//    @Override
+//    public PlatformTransactionManager annotationDrivenTransactionManager() {
+//        return transactionManager();
+//    }
+
+    @Bean
+    @Primary
+    public PlatformTransactionManager dataSourceTransactionManager() {
+        return new DataSourceTransactionManager(dataSource);
     }
 }
