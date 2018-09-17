@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:annotation-config/>
+    <context:property-placeholder location="classpath:convertion/application.properties" ignore-resource-not-found="true"/>
+
+    <bean id="customEditorConfiguer" class="org.springframework.beans.factory.config.CustomEditorConfigurer"
+        p:propertyEditorRegistrars-ref="propertyEditorRegistrarsList"/>
+
+    <util:list id="propertyEditorRegistrarsList">
+        <bean class="xyz.uniofun.prospring.ch7.propertyeditor.DateTimeRegistar">
+            <constructor-arg>
+                <value>${date.format.pattern}</value>
+            </constructor-arg>
+        </bean>
+    </util:list>
+
+    <bean id="eric" class="xyz.uniofun.prospring.ch7.Singer"
+          p:firstName="Eric"
+          p:lastName="Clapon"
+          p:birthDate="1945-03-30"
+          p:personalSite="http://ericclapon.com"
+    />
+
+    <bean id="countrySinger" class="xyz.uniofun.prospring.ch7.Singer"
+          p:firstName="${countrySinger.firstName}"
+          p:lastName="${countrySinger.lastName}"
+          p:birthDate="${countrySinger.birthDate}"
+          p:personalSite="${countrySinger.personalSite}"/>
+
+</beans>
