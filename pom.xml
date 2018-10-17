@@ -18,6 +18,7 @@
         <module>json-demo</module>
         <module>spring-demo</module>
         <module>log4j2-demo</module>
+        <module>hibernate-demo</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -65,6 +66,11 @@
                 <version>${log4j.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.46</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
