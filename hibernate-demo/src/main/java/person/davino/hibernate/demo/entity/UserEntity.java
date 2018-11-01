@@ -1,11 +1,18 @@
 package person.davino.hibernate.demo.entity;
 
+import person.davino.hibernate.demo.bean.Contact;
+import person.davino.hibernate.demo.bean.Name;
+
 import java.util.Objects;
 
 public class UserEntity {
     private String name;
     private long id;
     private int age;
+    private Contact contact;
+
+    private Name fullName;
+
 
     public String getName() {
         return name;
@@ -29,6 +36,22 @@ public class UserEntity {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public Name getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(Name fullName) {
+        this.fullName = fullName;
     }
 
     @Override
