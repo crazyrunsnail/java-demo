@@ -28,7 +28,9 @@ public class FlatMapDemo {
         collect1.stream().forEach(System.out::print);
 
         // List<String[]>
-        List<String[]> collect2 = Arrays.stream(strings).map(word -> word.split("")).collect(Collectors.toList());
+        List<String[]> collect2 = Arrays.stream(strings)
+                .map(word -> word.split(""))
+                .collect(Collectors.toList());
         Arrays.stream(collect2.get(1)).forEach(System.out::print);
 
         //Stream<List<Integer>>
