@@ -1,6 +1,7 @@
 package personal.davino.hibernate.test;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.junit.Test;
 import person.davino.hibernate.demo.entity.PassportEntity;
 import person.davino.hibernate.demo.entity.UserEntity;
@@ -20,6 +21,7 @@ public class OneToOneTests  extends BaseHibernateTest{
         passportEntity.setUser(userEntity);
         userEntity.setPassport(passportEntity);
         session.getTransaction().begin();
+//        session.save(passportEntity);
         session.save(userEntity);
         session.getTransaction().commit();
 
@@ -42,5 +44,31 @@ public class OneToOneTests  extends BaseHibernateTest{
         session.save(passportEntity);
         session.getTransaction().commit();
 
+    }
+
+    @Test
+    public void  biDirectOne2One() {
+        PassportEntity load = getSession().load(PassportEntity.class, 26L);
+        System.out.println(load.getUser());
+    }
+
+    @Test
+    public void biDirectOne2One2() {
+        UserEntity load = getSession().load(UserEntity.class, 29L);
+        System.out.println(load.getPassport());
+    }
+
+    @Test
+    public void biDirectSave() {
+        PassportEntity passportEntity = new PassportEntity();
+        passportEntity.setSerial("Seraial");
+        passportEntity.setExpiry(123124L);
+        Transaction transaction = getSession().getTransaction();
+        transaction.begin();
+        UserEntity userEntity = getSession().get(UserEntity.class, 9L);
+        passportEntity.setUser(userEntity);
+        userEntity.setPassport(passportEntity);
+        getSession().save(passportEntity);
+        transaction.commit();
     }
 }

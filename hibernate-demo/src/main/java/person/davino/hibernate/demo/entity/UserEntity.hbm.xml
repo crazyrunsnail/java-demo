@@ -25,7 +25,12 @@
             <property name="tel" type="java.lang.String" column="tel" />
         </component>
 
-        <one-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"
-                    cascade="all" outer-join="true" constrained="true"/>
+        <!--<one-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"-->
+                    <!--cascade="all" outer-join="true" constrained="true"/>-->
+
+        <!-- cascade 有没有值关系到保存user时, 是否有passport的值, 如果cascade设置了all, 则保存user时, 不需要先保存password -->
+        <!-- constrained 是非必须的 -->
+        <many-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"
+                     column="passport_id" unique="true" cascade="all"/>
     </class>
 </hibernate-mapping>

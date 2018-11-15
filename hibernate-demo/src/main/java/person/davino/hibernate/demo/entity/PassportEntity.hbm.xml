@@ -11,7 +11,10 @@
         </id>
         <property name="serial" column="serial" type="java.lang.String" />
         <property name="expiry"  column="expiry" type="java.lang.Long" />
-        <many-to-one name="user" class="person.davino.hibernate.demo.entity.UserEntity"
-                     property-ref="passport" unique="true" column="user_id"/>
+        <!--<many-to-one name="user" class="person.davino.hibernate.demo.entity.UserEntity"
+                     property-ref="passport" unique="true" column="user_id"/>-->
+
+        <one-to-one name="user" class="person.davino.hibernate.demo.entity.UserEntity"
+                    property-ref="passport"/>
     </class>
 </hibernate-mapping>
