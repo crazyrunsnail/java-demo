@@ -24,5 +24,8 @@
             <property name="zipcode" type="java.lang.String" column="zipcode" />
             <property name="tel" type="java.lang.String" column="tel" />
         </component>
+
+        <one-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"
+                    cascade="all" outer-join="true" constrained="true"/>
     </class>
 </hibernate-mapping>

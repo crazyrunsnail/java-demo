@@ -13,6 +13,8 @@ public class UserEntity {
 
     private Name fullName;
 
+    private PassportEntity passport;
+
 
     public String getName() {
         return name;
@@ -52,6 +54,14 @@ public class UserEntity {
 
     public void setFullName(Name fullName) {
         this.fullName = fullName;
+    }
+
+    public PassportEntity getPassport() {
+        return passport;
+    }
+
+    public void setPassport(PassportEntity passport) {
+        this.passport = passport;
     }
 
     @Override
