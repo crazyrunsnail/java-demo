@@ -9,6 +9,8 @@ public class GroupEntity implements Serializable {
 
     private String name;
 
+    private UserEntity user;
+
     public Long getId() {
         return id;
     }
@@ -23,5 +25,13 @@ public class GroupEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

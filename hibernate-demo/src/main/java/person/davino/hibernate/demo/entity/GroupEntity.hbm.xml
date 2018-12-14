@@ -11,5 +11,8 @@
         </id>
         <property name="name" column="name" type="java.lang.String" />
 
+        <many-to-one name="user" class="person.davino.hibernate.demo.entity.UserEntity"
+         column="user_id" cascade="none" outer-join="auto"/>
+
     </class>
 </hibernate-mapping>

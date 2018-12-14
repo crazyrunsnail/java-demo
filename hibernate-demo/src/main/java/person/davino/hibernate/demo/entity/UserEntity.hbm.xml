@@ -33,7 +33,8 @@
         <many-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"
                      column="passport_id" unique="true" cascade="all"/>
 
-        <set name="groups" table="t_group" cascade="all">
+        <!-- 这里的关键是 inverse=true 则hibernate只生成两条SQL插入-->
+        <set name="groups" table="t_group" cascade="all" inverse="true" lazy="false">
             <key column="user_id"></key>
             <one-to-many class="person.davino.hibernate.demo.entity.GroupEntity" />
         </set>

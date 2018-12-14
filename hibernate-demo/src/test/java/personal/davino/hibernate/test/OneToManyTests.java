@@ -9,6 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class OneToManyTests extends BaseHibernateTest {
+    /**
+     * 单向时插入三条SQL 最后一条SQL会 update t_group
+     * 双向时, 并且group为主动方, 只插入两条SQL
+     */
     @Test
     public void save() {
         UserEntity userEntity = new UserEntity();
