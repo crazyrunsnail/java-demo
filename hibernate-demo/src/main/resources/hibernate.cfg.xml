@@ -40,5 +40,6 @@
         <!--<mapping resource=""></mapping>-->
         <mapping resource="person/davino/hibernate/demo/entity/UserEntity.hbm.xml"/>
         <mapping resource="person/davino/hibernate/demo/entity/PassportEntity.hbm.xml"/>
+        <mapping resource="person/davino/hibernate/demo/entity/GroupEntity.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

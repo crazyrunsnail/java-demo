@@ -32,5 +32,10 @@
         <!-- constrained 是非必须的 -->
         <many-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"
                      column="passport_id" unique="true" cascade="all"/>
+
+        <set name="groups" table="t_group" cascade="all">
+            <key column="user_id"></key>
+            <one-to-many class="person.davino.hibernate.demo.entity.GroupEntity" />
+        </set>
     </class>
 </hibernate-mapping>

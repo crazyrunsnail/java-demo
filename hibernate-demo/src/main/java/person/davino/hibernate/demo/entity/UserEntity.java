@@ -4,6 +4,7 @@ import person.davino.hibernate.demo.bean.Contact;
 import person.davino.hibernate.demo.bean.Name;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class UserEntity {
     private String name;
@@ -14,6 +15,8 @@ public class UserEntity {
     private Name fullName;
 
     private PassportEntity passport;
+
+    private Set<GroupEntity> groups;
 
 
     public String getName() {
@@ -62,6 +65,14 @@ public class UserEntity {
 
     public void setPassport(PassportEntity passport) {
         this.passport = passport;
+    }
+
+    public Set<GroupEntity> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<GroupEntity> groups) {
+        this.groups = groups;
     }
 
     @Override
