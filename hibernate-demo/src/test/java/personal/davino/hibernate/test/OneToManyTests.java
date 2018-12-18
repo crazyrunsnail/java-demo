@@ -26,4 +26,10 @@ public class OneToManyTests extends BaseHibernateTest {
         getSession().save(userEntity);
         transaction.commit();
     }
+
+    @Test
+    public void  query() {
+        GroupEntity groupEntity = getSession().find(GroupEntity.class, 1L);
+        System.out.println(groupEntity.getUser());
+    }
 }
