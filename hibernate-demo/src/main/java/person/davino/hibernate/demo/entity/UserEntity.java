@@ -18,6 +18,13 @@ public class UserEntity {
 
     private Set<GroupEntity> groups;
 
+    public UserEntity(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public UserEntity() {
+    }
 
     public String getName() {
         return name;
