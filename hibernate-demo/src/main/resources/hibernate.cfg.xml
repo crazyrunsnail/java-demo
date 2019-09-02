@@ -35,10 +35,11 @@
         <property name="hibernate.format_sql">true</property>
         <!-- 启用getCurrentSession，默认未启用 -->
         <property name="hibernate.current_session_context_class">thread</property>
-        <mapping resource="person/davino/hibernate/demo/entity/UserEntity.hbm.xml"/>
         <!--3、加载配置文件  -->
         <!--基于xml映射文件： 映射文件加载。路径 -->
         <!--<mapping resource=""></mapping>-->
-
+        <mapping resource="person/davino/hibernate/demo/entity/UserEntity.hbm.xml"/>
+        <mapping resource="person/davino/hibernate/demo/entity/PassportEntity.hbm.xml"/>
+        <mapping resource="person/davino/hibernate/demo/entity/GroupEntity.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

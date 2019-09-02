@@ -1,5 +1,8 @@
 package personal.davino.hibernate.test;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -63,6 +66,12 @@ public class QuaikTest extends BaseHibernateTest{
         query.select(root);
         query.where(criteriaBuilder.equal(root.get("name"), "hello"));
         session.createQuery(query).getResultList().forEach(System.out::println);
+    }
+
+    @Test
+    public void  componentTest() throws JsonProcessingException {
+        UserEntity userEntity = getSession().get(UserEntity.class, 2L);
+        System.out.println(JSON.toJSONString(userEntity));
     }
 
 

@@ -15,5 +15,28 @@
         <property name="age">
             <column name="age" sql-type="int" />
         </property>
+        <component name="fullName" class="person.davino.hibernate.demo.bean.Name">
+            <property name="firstName" type="java.lang.String" column="first_name"/>
+            <property name="lastName" type="java.lang.String" column="last_name" />
+        </component>
+        <component name="contact" class="person.davino.hibernate.demo.bean.Contact">
+            <property name="address" type="java.lang.String" column="address" />
+            <property name="zipcode" type="java.lang.String" column="zipcode" />
+            <property name="tel" type="java.lang.String" column="tel" />
+        </component>
+
+        <!--<one-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"-->
+                    <!--cascade="all" outer-join="true" constrained="true"/>-->
+
+        <!-- cascade 有没有值关系到保存user时, 是否有passport的值, 如果cascade设置了all, 则保存user时, 不需要先保存password -->
+        <!-- constrained 是非必须的 -->
+        <many-to-one name="passport" class="person.davino.hibernate.demo.entity.PassportEntity"
+                     column="passport_id" unique="true" cascade="all"/>
+
+        <!-- 这里的关键是 inverse=true 则hibernate只生成两条SQL插入-->
+        <set name="groups" table="t_group" cascade="all" inverse="true" lazy="false">
+            <key column="user_id"></key>
+            <one-to-many class="person.davino.hibernate.demo.entity.GroupEntity" />
+        </set>
     </class>
 </hibernate-mapping>
