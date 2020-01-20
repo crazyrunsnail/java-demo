@@ -21,6 +21,7 @@
         <module>hibernate-demo</module>
         <module>quartz-demo</module>
         <module>zk-demo</module>
+        <module>rocketmq-demo</module>
     </modules>
     <packaging>pom</packaging>
 
