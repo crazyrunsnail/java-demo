@@ -22,11 +22,12 @@ final class Handler implements Runnable{
     static final int READING = 0, SENDING = 1;
     int state = READING;
 
-    Handler(Selector sel, SocketChannel c) throws ClosedChannelException {
+    Handler(Selector sel, SocketChannel c) throws IOException {
         socket = c;
-        sk = socket.register(sel, SelectionKey.OP_READ);
+        c.configureBlocking(false);
+        sk = socket.register(sel, 0);
         sk.attach(this);
-        sk.interestOps(SelectionKey.OP_ACCEPT);
+        sk.interestOps(SelectionKey.OP_READ);
         sel.wakeup();
     }
 
@@ -35,11 +36,16 @@ final class Handler implements Runnable{
     }
 
     boolean outputIsComplete() {
-        return false;
+        return true;
     }
 
     void process() {
-
+        System.out.println("In process..");
+        this.output.clear();
+        this.input.rewind();
+        this.output.put(this.input);
+        this.output.flip();
+        System.out.println("Process finished!!!");
     }
 
     @Override
@@ -55,16 +61,24 @@ final class Handler implements Runnable{
     }
 
     void send() throws IOException {
+        System.out.println("Ready to send data....");
+        socket.write(output);
+//        if (outputIsComplete())
+//            sk.cancel();
+
+        System.out.println("Send data finished!");
+        System.out.println("interest read..");
+        state = READING;
+    }
+
+    void read() throws IOException {
+        System.out.println("Ready to read data...");
         socket.read(input);
         if (inputIsComplete()) {
             process();
             state = SENDING;
             sk.interestOps(SelectionKey.OP_WRITE);
         }
-    }
-
-    void read() throws IOException {
-        socket.write(output);
-        if (outputIsComplete()) sk.cancel();
+        System.out.println("Read data finished!");
     }
 }

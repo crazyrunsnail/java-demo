@@ -2,8 +2,10 @@ package person.davino.scalable.reactor;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.channels.*;
-import java.nio.channels.spi.SelectorProvider;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -24,13 +26,15 @@ public class Reactor implements Runnable{
 
         serverSocketChannel = ServerSocketChannel.open();
 
-        serverSocketChannel.bind(new InetSocketAddress(port));
+        serverSocketChannel.socket().bind(new InetSocketAddress(port));
 
         serverSocketChannel.configureBlocking(false);
 
         SelectionKey sk = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
         sk.attach(new Acceptor());
+
+        System.out.println("Selector start....");
 
         // 下面的方式也是可以, 而且更加简洁
 
@@ -55,9 +59,11 @@ public class Reactor implements Runnable{
 
                 while (iterator.hasNext()) {
                     SelectionKey selectionKey = (SelectionKey)iterator.next();
+                    System.out.println("Get selectionKey :" + selectionKey.interestOps() + "[" + selectionKey.readyOps()+
+                            "]"+ ", dispatch....");
                     dispath(selectionKey);
-                    selected.clear();   //事实上这里clear是因为只有一个SelectKey
                 }
+                selected.clear();   //事实上这里clear是因为只有一个SelectKey
             }
         }catch (IOException ioe) {
 
@@ -66,8 +72,8 @@ public class Reactor implements Runnable{
 
     // 分发器
     public void dispath(SelectionKey k) {
-        Runnable r = (Runnable)k.attachment(); // attchment 为 accepter
-        if (r!=null)
+        Runnable r = (Runnable) k.attachment(); // attchment 为 accepter
+        if (r != null)
             r.run();
     }
 
@@ -75,17 +81,26 @@ public class Reactor implements Runnable{
 
         @Override
         public void run() {
+            System.out.println("Acceptor run....");
             SocketChannel c = null;
             try {
                 c = serverSocketChannel.accept();
-                if (c!=null) {
+                System.out.println("Accept a socketchannel: " + c);
+                if (c != null) {
                     new Handler(selector, c);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    System.out.println("Error, close....");
+                    c.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
-
-
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Reactor(9098).run();
     }
 }
