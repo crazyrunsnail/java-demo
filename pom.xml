@@ -22,6 +22,7 @@
         <module>quartz-demo</module>
         <module>zk-demo</module>
         <module>rocketmq-demo</module>
+        <module>disruptor-demo</module>
     </modules>
     <packaging>pom</packaging>
 
