@@ -15,5 +15,7 @@ public class BigDecimalCompare {
         System.out.println(totolFee.compareTo(BigDecimal.valueOf(306.0d)));
         // ➤
         System.out.println(totolFee.doubleValue() == (BigDecimal.valueOf(306.0d)).doubleValue());
+
+        System.out.println(BigDecimal.ZERO.compareTo(BigDecimal.valueOf(-0.01)));
     }
 }
