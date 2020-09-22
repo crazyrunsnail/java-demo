@@ -21,7 +21,9 @@ public class QuickStarter {
             User user1 = (User)session.selectOne("person.davino.mybatis.demo.mapper.UserMapper.select", 1);
             System.out.println(user1);
             UserMapper userMapper = session.getMapper(UserMapper.class);
-            User user = userMapper.select(1L);
+            User dto = new User();
+            dto.setId(1L);
+            User user = userMapper.select(dto);
             System.out.println(user);
         } finally {
             session.close();

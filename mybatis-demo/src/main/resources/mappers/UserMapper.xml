@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="person.davino.mybatis.demo.mapper.UserMapper">
     <select id="select" resultType="user">
-        select * from users where id = #{id}
+        select * from users where
+        <if test=" dto.id != null">
+            <choose>
+                <when test=" dto.id == 1"> id = 2 </when>
+                <otherwise> id = 1 </otherwise>
+            </choose>
+        </if>
     </select>
 </mapper>

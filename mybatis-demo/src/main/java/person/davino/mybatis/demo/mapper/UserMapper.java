@@ -7,5 +7,7 @@ import person.davino.mybatis.demo.model.User;
 
 @Mapper
 public interface UserMapper {
-    User select(@Param("id") Long id);
+
+    User select(@Param("dto") User user);
+
 }
