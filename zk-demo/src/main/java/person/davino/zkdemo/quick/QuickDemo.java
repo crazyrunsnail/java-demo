@@ -23,17 +23,31 @@ public class QuickDemo {
     static ZooKeeper zkClient;
     public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         zkClient = new ZooKeeper(connectString, 2000, null);
-        createNode(zkClient);
+//        createNode(zkClient);
+        createChildNode(zkClient);
     }
 
     /**
      * 创建一个path, 以 <em>/</em> 开头
+     * 创建后再创建会报NodeExistsException, 可以使用此原理来做排它锁
      * @param zkClient
      * @throws KeeperException
      * @throws InterruptedException
      */
     public static void createNode(ZooKeeper zkClient) throws KeeperException, InterruptedException {
-        String answer = zkClient.create("/davin", "firstpath".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+        String answer = zkClient.create("/davino_test", "firstpath".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.PERSISTENT);
+        logger.info("创建成功, 返回结果: {}", answer);
+    }
+
+    /**
+     * 创建一个child path, 父path一定要先存在
+     * @param zkClient
+     * @throws KeeperException
+     * @throws InterruptedException
+     */
+    public static void createChildNode(ZooKeeper zkClient) throws KeeperException, InterruptedException {
+        String answer = zkClient.create("/davino_test/first_node", "firstpath".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.PERSISTENT);
         logger.info("创建成功, 返回结果: {}", answer);
     }
