@@ -23,6 +23,7 @@
         <module>zk-demo</module>
         <module>rocketmq-demo</module>
         <module>disruptor-demo</module>
+        <module>junit5-demo</module>
     </modules>
     <packaging>pom</packaging>
 
