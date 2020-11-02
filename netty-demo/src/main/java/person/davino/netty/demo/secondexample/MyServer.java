@@ -30,6 +30,7 @@ public class MyServer {
                             pipeline.addLast(new StringDecoder(StandardCharsets.UTF_8));
                             pipeline.addLast(new StringEncoder(StandardCharsets.UTF_8));
                             pipeline.addLast(new MyServerHandler());
+                            pipeline.addLast(new MyServerSecondHandler());
                         }
                     });
             ChannelFuture channelFuture = bootstrap.bind(8888).sync();
