@@ -5,19 +5,25 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.timeout.IdleStateHandler;
-import person.davino.netty.demo.heartbeat.MyHeartBeatHandler;
-
-import java.util.concurrent.TimeUnit;
+import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.util.concurrent.ImmediateEventExecutor;
 
 public class MyWebSocketServer {
 
     public static void main(String[] args) throws InterruptedException {
+
+        final ChannelGroup channelGroup =
+                new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
 
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
@@ -29,8 +35,12 @@ public class MyWebSocketServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new IdleStateHandler(5, 10, 15, TimeUnit.SECONDS));
-                            pipeline.addLast(new MyHeartBeatHandler());
+                            pipeline.addLast(new HttpServerCodec());
+                            pipeline.addLast(new ChunkedWriteHandler());
+                            pipeline.addLast(new HttpObjectAggregator(64 * 1024));
+                            pipeline.addLast(new HttpRequestHandler());
+                            pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
+                            pipeline.addLast(new TextWebSocketFrameHandler(channelGroup));
                         }
                     });
             ChannelFuture channelFuture = bootstrap.bind(8888).sync();
