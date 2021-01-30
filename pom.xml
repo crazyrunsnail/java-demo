@@ -24,6 +24,7 @@
         <module>rocketmq-demo</module>
         <module>disruptor-demo</module>
         <module>junit5-demo</module>
+        <module>vertxdemo</module>
     </modules>
     <packaging>pom</packaging>
 
