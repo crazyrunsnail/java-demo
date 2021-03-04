@@ -36,10 +36,17 @@ public class ByteBufDemo {
         System.out.println(byteBuf.writerIndex());
         System.out.println(byteBuf.toString(StandardCharsets.UTF_8));
 
-
+        // slice共享底层数组
         /*ByteBuf slice = byteBuf.slice(0, 3);
         byteBuf.setByte(0, (byte) 'J');
         System.out.println(byteBuf.getByte(0) == slice.getByte(0)); // true*/
+
+        // 不改变byteBuf的readerIndex和writeIndex
+        if (byteBuf.hasArray()) {
+            System.out.println(new String(byteBuf.array(), StandardCharsets.UTF_8));
+        }
+        System.out.println(byteBuf.readerIndex());
+        System.out.println(byteBuf.writerIndex());
 
 
 
